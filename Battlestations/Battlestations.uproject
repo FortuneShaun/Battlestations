@@ -2,12 +2,5 @@
 	"FileVersion": 3,
 	"EngineAssociation": "4.6",
 	"Category": "",
-	"Description": "",
-	"Modules": [
-		{
-			"Name": "Battlestations",
-			"Type": "Runtime",
-			"LoadingPhase": "Default"
-		}
-	]
+	"Description": ""
 }
