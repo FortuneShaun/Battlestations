@@ -5,8 +5,8 @@
 #include "Engine.h"
 
 template<class TypeName>
-TypeName* getAsset(TCHAR* tChar)
+TypeName* GetAsset(TCHAR* AssetRef)
 {
-	ConstructorHelpers::FObjectFinder<TypeName> obj(tChar);
-	return obj.Object;
+	ConstructorHelpers::FObjectFinder<TypeName> Asset(AssetRef);
+	return Asset.Object;
 }
