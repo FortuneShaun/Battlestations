@@ -30,10 +30,18 @@ void AEnemyAI_Boat::Attack()
 	if (PlayerBoats.Num() > 0)
 	{
 		int32 PlayerShipToAttack = FMath::RandRange(0, PlayerBoats.Num() - 1);
-
+		
+		Char->PlayerShips.Remove((APlayerGrid_Ship*)PlayerBoats[PlayerShipToAttack]);
 		PlayerBoats[PlayerShipToAttack]->Destroy();
 		PlayerBoats.RemoveAt(PlayerShipToAttack, 1, true);
+
 		Char->bIsTurn = true;
+	}
+
+	if (Char->EnemyShips.Num() == 0 || Char->PlayerShips.Num() == 0)
+	{
+		Char->bIsTurn = false;
+		Char->TimeToFire = 6000000;
 	}
 }
 
@@ -46,18 +54,27 @@ void AEnemyAI_Boat::SetupEnemyBoats()
 {
 	int32 EnemyShipsCreated = 0;
 
-	for (int32 i = 0; i < EnemyBoats.Num(); i++)
+	ABattleshipBoardPawn* Char = (ABattleshipBoardPawn*)GetWorld()->GetFirstPlayerController()->GetPawn();
+
+	while (EnemyShipsCreated != 10)
 	{
-		int32 IsArmed = FMath::RandRange(0, 1);
-		AEnemyGrid_Hidden* EnemyShip = (AEnemyGrid_Hidden*)EnemyBoats[i];
-		switch (IsArmed)
+		for (int32 i = 0; i < EnemyBoats.Num(); i++)
 		{
-		case 0:
-			break;
-		case 1:
-			EnemyShip->bHasShip = true;
-			EnemyShipsCreated++;
-			break;
+			int32 IsArmed = FMath::RandRange(0, 1);
+			AEnemyGrid_Hidden* EnemyShip = (AEnemyGrid_Hidden*)EnemyBoats[i];
+			if (EnemyShipsCreated < 10 && !EnemyShip->bHasShip)
+			{
+				switch (IsArmed)
+				{
+				case 0:
+					break;
+				case 1:
+					EnemyShip->bHasShip = true;
+					EnemyShipsCreated++;
+					Char->EnemyShips.Add(EnemyShip);
+					break;
+				}
+			}
 		}
 	}
 	ABattleshipBoardPawn* const Player = (ABattleshipBoardPawn*)GetWorld()->GetFirstPlayerController()->GetPawn();

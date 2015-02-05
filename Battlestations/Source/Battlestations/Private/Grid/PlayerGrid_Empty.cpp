@@ -26,7 +26,8 @@ void APlayerGrid_Empty::OnClickedGrid(UPrimitiveComponent* Comp)
 				Player->ShipsRemainingToPlace--;
 				ShipAI->PlayerBoats[i] = World->SpawnActor<APlayerGrid_Ship>(APlayerGrid_Ship::StaticClass(), GetActorLocation(), GetActorRotation());
 				APlayerGrid_Ship* a = (APlayerGrid_Ship*)ShipAI->PlayerBoats[i];
-				a->ShipAI = ShipAI;
+				a->ShipAI = ShipAI; 
+				Player->PlayerShips.Add(a);
 				Destroy();
 			}
 		}

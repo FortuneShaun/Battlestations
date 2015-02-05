@@ -22,6 +22,7 @@ void AEnemyGrid_Hidden::OnClickedGrid(UPrimitiveComponent* Comp)
 
 		if (bHasShip)
 		{
+			Player->EnemyShips.Remove(this);
 			Destroy();
 		}
 		else

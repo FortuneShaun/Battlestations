@@ -5,6 +5,9 @@
 #include "GameFramework/Pawn.h"
 #include "BattleshipBoardPawn.generated.h"
 
+class APlayerGrid_Ship;
+class AEnemyGrid_Hidden;
+
 /**
  * Character that holds the players ships and whether its their turn or not
  */
@@ -27,6 +30,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ships")
 	//The amount of ships that need to be placed
 	int32 ShipsRemainingToPlace;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ships")
+	//All the player ships
+	TArray<APlayerGrid_Ship*> PlayerShips;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ships")
+	//All the Enemy ships
+	TArray<AEnemyGrid_Hidden*> EnemyShips;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Placement")
 	//Whether the player can place or remove ships
