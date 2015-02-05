@@ -5,6 +5,8 @@
 #include "Grid/EmptyGridElement.h"
 #include "PlayerGrid_Empty.generated.h"
 
+class AEnemyAI_Boat;
+
 /**
  * 
  */
@@ -19,4 +21,7 @@ public:
 	UFUNCTION()
 	//For when the player clicks the grid
 	void OnClickedGrid(UPrimitiveComponent* Comp);
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
+	AEnemyAI_Boat* ShipAI;
 };

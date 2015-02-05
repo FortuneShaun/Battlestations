@@ -12,9 +12,13 @@ void AEnemyGrid_Hidden::OnClickedGrid(UPrimitiveComponent* Comp)
 {
 	ABattleshipBoardPawn* const Player = (ABattleshipBoardPawn*)GetWorld()->GetFirstPlayerController()->GetPawn();
 
-	if (Player && Player->bIsPlaying && Player->bIsTurn)
+	//If the player is playing, its their turn and they can fire
+	if (Player && Player->bIsPlaying && Player->bIsTurn && Player->bCanFire && !bIsDead)
 	{
 		Player->bIsTurn = false;
+		Player->TimeToFire = 3;
+		Player->bCanFire = false;
+		bIsDead = true;
 
 		if (bHasShip)
 		{

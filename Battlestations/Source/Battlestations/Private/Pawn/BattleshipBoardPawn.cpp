@@ -12,5 +12,19 @@ ABattleshipBoardPawn::ABattleshipBoardPawn(const FObjectInitializer& PCIP) : Sup
 
 	bIsTurn = true;
 
-	ShipsRemainingToPlace = 1;
+	ShipsRemainingToPlace = 10;
+	PrimaryActorTick.bCanEverTick = true;
+}
+
+void ABattleshipBoardPawn::Tick(float DeltaSeconds)
+{
+	if (bIsTurn && !bCanFire)
+	{
+		TimeToFire -= DeltaSeconds;
+
+		if (TimeToFire <= 0)
+		{
+			bCanFire = true;
+		}
+	}
 }

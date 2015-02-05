@@ -4,6 +4,7 @@
 #include "PlayerGrid_Ship.h"
 #include "PlayerGrid_Empty.h"
 #include "Public/Pawn/BattleshipBoardPawn.h"
+#include "EnemyAI_Boat.h"
 
 APlayerGrid_Ship::APlayerGrid_Ship(const FObjectInitializer& PCIP) : Super(PCIP)
 {
@@ -28,9 +29,17 @@ void APlayerGrid_Ship::OnClickedGrid(UPrimitiveComponent* Comp)
 	{
 		UWorld* const World = GetWorld();
 
-		Player->ShipsRemainingToPlace++;
-		World->SpawnActor<APlayerGrid_Empty>(APlayerGrid_Empty::StaticClass(), GetActorLocation(), GetActorRotation());
-		Destroy();
+		for (int32 i = 0; i < ShipAI->PlayerBoats.Num(); i++)
+		{
+			if (ShipAI->PlayerBoats[i] == this)
+			{
+				Player->ShipsRemainingToPlace++;
+				ShipAI->PlayerBoats[i] = World->SpawnActor<APlayerGrid_Empty>(APlayerGrid_Empty::StaticClass(), GetActorLocation(), GetActorRotation());
+				APlayerGrid_Empty* a = (APlayerGrid_Empty*)ShipAI->PlayerBoats[i];
+				a->ShipAI = ShipAI;
+				Destroy();
+			}
+		}
 	}
 
 	if (Player && Player->ShipsRemainingToPlace <= 0)

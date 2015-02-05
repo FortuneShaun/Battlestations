@@ -31,4 +31,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Placement")
 	//Whether the player can place or remove ships
 	bool bIsPlaying;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Placement")
+	//Whether the player can fire at enemy ships
+	bool bCanFire;
+
+	float TimeToFire;
+
+	virtual void Tick(float DeltaSeconds) override;
 };

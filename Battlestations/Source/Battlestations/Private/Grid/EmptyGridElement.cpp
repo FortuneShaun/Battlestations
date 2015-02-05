@@ -11,4 +11,6 @@ AEmptyGridElement::AEmptyGridElement(const FObjectInitializer& PCIP) : Super(PCI
 	UStaticMesh* GridAsset = GetAsset<UStaticMesh> (TEXT("StaticMesh'/Game/GridElement_Player.GridElement_Player'"));
 
 	GridMesh->SetStaticMesh(GridAsset);
+
+	this->SetActorScale3D(FVector(.5, .5, .5));
 }
