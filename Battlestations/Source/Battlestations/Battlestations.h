@@ -4,3 +4,9 @@
 
 #include "Engine.h"
 
+template<class TypeName>
+TypeName* GetAsset(TCHAR* AssetRef)
+{
+	ConstructorHelpers::FObjectFinder<TypeName> Asset(AssetRef);
+	return Asset.Object;
+}
